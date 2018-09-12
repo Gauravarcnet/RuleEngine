@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- The admin page view template -->
+<head>
+    <!-- adding the dependency for jquery library -->
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // implementing on click for editing existing rule when user
+            // clicks on a row in rule table.
+            $("tr").click(function () {
+
+                let id = $('> #id', this).text();
+                console.log(id);
+                window.location.href = "editRule?id=" + id;
+
+            });
+        });
+
+    </script>
+    <style type="text/css">
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        .menu ul,
+        li {
+            text-decoration: none;
+            list-style-type: none;
+            padding: 10px;
+            margin-left: 10px;
+            width: 90px;
+            height: 20px;
+            border: 2px solid green;
+        }
+
+        tbody tr:hover {
+            background-color: burlywood;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin</title>
+</head>
+
+<body>
+    <div>
+        <h3 align="center"> Rule</h3>
+        <table align="center">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Condtion</th>
+                    <th>SetOperator</th>
+                    <th>SetValue</th>
+                    <th>SetTime(inHours)</th>
+                </tr>
+            </thead>
+            <!-- iterating over the existing rules to form a table -->
+            <% for (var i = 1; i < (Object.keys(data).length + 1); i++) { %>
+            <tbody>
+                <tr>
+                    <td id="id">
+                        <%= i%>
+                    </td>
+                    <td>
+                        <%= data[''+i].conditions.any[0].all[0].value%>
+                    </td>
+                    <td>
+                        <%= data[''+i].conditions.any[0].all[1].operator%>
+                    </td>
+                    <td>
+                        <%= data[''+i].event.params.message%>
+                    </td>
+                    <td>
+                            <%= data[''+i].conditions.any[0].all[1].value%>
+                        </td>
+                </tr>
+            </tbody>
+            <% } %>
+        </table>
+        <button style="margin: 30px 48% ;width: 8%"><a href="/rule"> New Rule </a></button>
+    </div>
+</body>
+
+</html>
